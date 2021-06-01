@@ -83,8 +83,15 @@ renderAntonym()
 
 let textEl = document.querySelector('.search-bar input[type ="text"]')
 let sentenceEl = document.querySelector('.sentence-searched')
-textEl.onkeyup  = (e) => {
-    fetch(`https://api.tracau.vn/WBBcwnwQpV89/s/${e.target.value}/en`)
+let button = document.querySelector('button')
+textEl.onchange  = (e) => {
+    
+    button.onclick = getInfo(e.target.value)
+    
+}
+
+function getInfo(value) {
+    fetch(`https://api.tracau.vn/WBBcwnwQpV89/s/${value}/en`)
     .then(response => response.json())
     .then(result => {
         return result.sentences.map(sentence => {
@@ -100,5 +107,4 @@ textEl.onkeyup  = (e) => {
         })
     })
     .then(result => sentenceEl.innerHTML = result.join(''))
-    
 }
